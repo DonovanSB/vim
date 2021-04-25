@@ -10,6 +10,7 @@ set encoding=utf-8
 set showmatch
 set sw=2
 set laststatus=2
+set nowrap
 
 call plug#begin('~/.vim/plugged')
 " Themes
@@ -17,21 +18,20 @@ Plug 'crusoexia/vim-monokai'
 
 " IDE
 Plug 'easymotion/vim-easymotion'
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'vwxyutarooo/nerdtree-devicons-syntax'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mhinz/vim-startify'
 
 "Flutter
 Plug 'dart-lang/dart-vim-plugin' 
-Plug 'natebosch/vim-lsc'
-Plug 'natebosch/vim-lsc-dart'
-Plug 'thosakwe/vim-flutter'
+Plug 'Neevash/awesome-flutter-snippets'
 
 call plug#end()
 
@@ -45,22 +45,14 @@ nmap <Leader>s <Plug>(easymotion-s2)
 nmap <Leader>nt :NERDTreeFind<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>q :q<CR>
+nmap <Leader>d :bd<CR>
 
 let g:airline_theme='dark'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-inoremap <silent><expr> <c-space> coc#refresh()
-
 " Comandos flutter
-let g:lsc_auto_map = v:true
+"let g:lsc_auto_map = v:true
 let g:dart_format_on_save = 1
 nnoremap <leader>fa :CocCommand flutter.run<cr>
 nnoremap <leader>fq :CocCommand flutter.dev.quit<cr>
@@ -70,3 +62,19 @@ nnoremap <leader>fo :CocCommand flutter.dev.openDevLog<cr>
 nnoremap <leader>fc :CocCommand flutter.dev.clearDevLog<cr>
 nnoremap <leader>fd :CocList FlutterDevices<cr>
 nnoremap <leader>fe :CocList FlutterEmulators<cr>
+imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Comandos multicursor
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-d>'
+let g:multi_cursor_select_all_word_key = '<A-a>'
+let g:multi_cursor_start_key           = 'g<C-d>'
+let g:multi_cursor_select_all_key      = 'g<A-d>'
+let g:multi_cursor_next_key            = '<C-d>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
